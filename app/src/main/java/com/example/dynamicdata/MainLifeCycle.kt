@@ -22,13 +22,13 @@ class MainLifeCycle : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         Log.d(TAG, "onCreate: ")
-        //init timer
-        timer = Timer("MainLifeCycle")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
         Log.d(TAG, "onStart: ")
+        //init timer
+        timer = Timer("MainLifeCycle")
     }
     
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -58,18 +58,20 @@ class MainLifeCycle : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
         Log.d(TAG, "onPause: ")
-        timer?.cancel()
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStop() {
         Log.d(TAG, "onStop: ")
+        timer?.cancel()
+        timer = null
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
         Log.d(TAG, "onDestroy: ")
-        timer = null
+
     }
 
     companion object {
