@@ -97,7 +97,7 @@ class MainFragment : Fragment() {
 
     private fun produceTestData() : List<Student> {
         val students = ArrayList<Student>()
-        for (i in 0..10) {
+        for (i in 0..2) {
             students.add(Student(name = "hyy$i", age = i * Random.nextInt(3)))
         }
         return students
