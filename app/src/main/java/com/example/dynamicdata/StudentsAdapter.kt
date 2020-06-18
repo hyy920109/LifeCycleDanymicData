@@ -9,4 +9,10 @@ class StudentsAdapter : BaseQuickAdapter<Student, BaseViewHolder>(R.layout.item_
         holder.setText(R.id.name, item.name)
             .setText(R.id.age, item.age.toString())
     }
+
+    override fun convert(holder: BaseViewHolder, item: Student, payloads: List<Any>) {
+        holder.setText(R.id.name, item.name)
+            .setText(R.id.age, item.age.toString())
+
+    }
 }

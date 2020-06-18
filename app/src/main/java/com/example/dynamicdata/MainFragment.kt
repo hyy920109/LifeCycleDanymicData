@@ -2,18 +2,18 @@ package com.example.dynamicdata
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dynamicdata.databinding.FragmentMainBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -61,6 +61,7 @@ class MainFragment : Fragment() {
 
     private fun initData() {
         adapter.setList(produceTestData())
+        adapter.setDiffCallback(DiffStudentItemCallback())
     }
 
     private fun initView() {
@@ -72,6 +73,8 @@ class MainFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@MainFragment.adapter
         }
+        //可以保证更新的时候没有闪烁动画
+//        mBinding.rvStudents.itemAnimator = null
     }
 
 
@@ -88,10 +91,7 @@ class MainFragment : Fragment() {
 
     private fun updateStudentsList(students: List<Student>) {
         students.apply {
-            val oldStudents = adapter.data
-            val result = DiffUtil.calculateDiff(StudentDiff(this, oldStudents), false)
-            adapter.setList(students)
-            result.dispatchUpdatesTo(adapter)
+            adapter.setDiffNewData(this.toMutableList())
         }
     }
 
